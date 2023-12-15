@@ -160,7 +160,7 @@ class UniverseUtils:
                 # x01y01:窗口左上右下坐标
                 # xx yy:窗口大小
                 # scx scy:当前窗口和基准窗口（1920*1080）缩放大小比例
-                if Text == "Honkai: Star Rail":
+                if Text in ["Honkai: Star Rail", "崩坏星穹铁道"]:
                     time.sleep(1)
                     if self.xx != 1920 or self.yy != 1080:
                         log.error("分辨率错误")

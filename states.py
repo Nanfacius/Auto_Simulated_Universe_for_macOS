@@ -158,7 +158,7 @@ class SimulatedUniverse(UniverseUtils):
             Text = NSWorkspace.sharedWorkspace().activeApplication()['NSApplicationName']
             warn_game = False
             cnt = 0
-            while Text != "Honkai: Star Rail" and not self._stop:
+            while Text not in ["Honkai: Star Rail", "崩坏：星穹铁道"] and not self._stop:
                 self.lst_changed = time.time()
                 if self._stop:
                     raise KeyboardInterrupt
