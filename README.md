@@ -2,6 +2,7 @@
 星穹铁道-模拟宇宙自动化-mocOS版
 
 使用指南：
+
 1 - 使用PlayCover运行iPadOS版崩坏星穹铁道。
 
 2.- 设置键盘映射，可以从 https://github.com/PlayCover/keymaps 下载
