@@ -257,7 +257,7 @@ class SimulatedUniverse(UniverseUtils):
         bk_lst_changed = self.lst_changed
         self.lst_changed = time.time()
         # 战斗界面
-        if self.check("c", 0.9625, 0.1241, threshold=0.9):  # or self.check("auto_2", 0.0682, 0.0917)
+        if self.check("c", 0.9625, 0.1241, threshold=0.85):  # or self.check("auto_2", 0.0682, 0.0917)
             # 需要打开自动战斗
             if not self.check_auto():
                 self.press("l")
