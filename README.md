@@ -17,7 +17,7 @@
 
 Honkai: Star Rail Auto Simulated Universe for macOS
 
-Guide to use
+Quick Guidence
 
 1 - Run Honkai: Star Rail ipadOS version on PlayCover.
 
