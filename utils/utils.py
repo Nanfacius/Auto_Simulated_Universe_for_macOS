@@ -616,7 +616,6 @@ class UniverseUtils:
         bw_map = cv.morphologyEx(bw_map, cv.MORPH_CLOSE, kernel=np.ones((3, 3), np.uint8))
         if self.find == 0:
             cv.imwrite(self.map_file + "bwmap.jpg", bw_map)
-        cv.imwrite("test_bw_map.jpg", bw_map)
         return bw_map
 
     # 计算小地图中蓝色箭头的角度
@@ -629,7 +628,6 @@ class UniverseUtils:
         upper = np.array([255, 255, 255])
         mask = cv.inRange(hsv, lower, upper)  # 创建掩膜
         loc_tp = cv.bitwise_and(loc_scr, loc_scr, mask=mask)
-        cv.imwrite("test_loc_tp.jpg", loc_tp)
         mx_acc = 0
         ang = 0
         for i in range(360):
@@ -747,7 +745,6 @@ class UniverseUtils:
                     * 180
             )
             sub = ang - self.ang
-            cv.imwrite("test_local_screen.jpg", local_screen)
             while sub < -180:
                 sub += 360
             while sub > 180:
