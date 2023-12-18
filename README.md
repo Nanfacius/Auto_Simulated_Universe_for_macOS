@@ -25,7 +25,7 @@ Quick Guidence
 
 3 - Revise macOS resolution to more than 1920 x 1080 and revise the game resolution to 1920 x 1080. Notice that the resolution set by PlayCover is not necessariily equal to the logical resolution. You can use calculator to calculate the resolution needed. For example, if you use Macbook Pro with a 14 inch screen, set the game resolution to 2494 x 1367, then the logic resolution will be exactly 1920 x 1080. Besides, if the game crashes, you may solve the problem by re-signing. Open Terminal and type `sudo codesign -f -d -s - GameInstallationLocation.app (or drag the .app file)`
 
-4 - Install Python dependencies: `cd ThisProgramDirectory`, then `pip install -r -requirements.txt`
+4 - Install Python dependencies: `cd ThisProjectDirectory`, then `pip install -r -requirements.txt`
 
 5 - Run the program: `python states.py`
 
