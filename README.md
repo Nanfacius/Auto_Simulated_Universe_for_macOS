@@ -29,4 +29,6 @@ Quick Guidence
 
 5 - Run the program: `python states.py`
 
+Notice: This program is designed for Chinese game interface only. English is not supported for now.
+
 Video display: https://www.bilibili.com/video/BV1Pb4y157U3/
