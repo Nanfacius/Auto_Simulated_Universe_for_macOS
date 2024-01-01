@@ -583,7 +583,7 @@ class SimulatedUniverse(UniverseUtils):
                     )
                     time.sleep(0.3)
             self.click((0.1859, 0.0880))
-        elif self.check("fate_2", 0.2104, 0.0843):
+        elif self.check("fate_2", 0.1427, 0.0821):
             self.click((0.2104, 0.0843))
             self.confirm_time = time.time()
         elif self.check("fate", 0.9292, 0.9259):
