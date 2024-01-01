@@ -1336,7 +1336,7 @@ class UniverseUtils:
                 if not self.check_bonus:
                     break
                 self.get_screen()
-                if self.check('bonus_c', 1818, 0.6878):
+                if self.check('bonus_c', 0.1818, 0.6878):
                     self.click((0.3578, 0.2722))
                     time.sleep(0.5)
                     self.get_screen()
@@ -1346,8 +1346,8 @@ class UniverseUtils:
                     time.sleep(1.2)
             keyops.keyUp('w')
             self.get_screen()
-            if self.check('bonus_c', 1818, 0.6878):
-                self.click((1818, 0.6878))
+            if self.check('bonus_c', 0.1818, 0.6878):
+                self.click((0.1818, 0.6878))
             self.mini_state += 2
             if self.floor == 12:
                 return
