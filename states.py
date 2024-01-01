@@ -27,7 +27,7 @@ import utils.keyops as keyops
 
 
 # 版本号
-version = "v1.0 for macOS based on v6.051 E"
+version = "v1.1 for macOS"
 
 
 class SimulatedUniverse(UniverseUtils):
