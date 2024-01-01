@@ -559,8 +559,8 @@ class SimulatedUniverse(UniverseUtils):
                 return 1
             self.click((0.3, 0.4316))
             self.init_map()
-        elif self.check("begin", 0.3135, 0.7583):
-            con = self.check("conti", 0.1099, 0.0972)
+        elif self.check("begin", 0.3490, 0.7546):
+            con = self.check("conti", 0.1365, 0.0843)
             if not con:
                 if self.diffi == 5:
                     self.click((0.9167, 0.8120 - 0.3692))
