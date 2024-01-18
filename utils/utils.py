@@ -1323,7 +1323,7 @@ class UniverseUtils:
             self.press('d', 0.45)
             keyops.keyDown('w')
             nt = time.time()
-            while time.time() - nt < 1.3:
+            while time.time() - nt < 2.3:
                 self.get_screen()
                 if self.check("f", 0.4016, 0.3935, mask="mask_f1"):
                     self.press('f')
