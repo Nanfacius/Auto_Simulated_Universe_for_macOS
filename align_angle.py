@@ -41,6 +41,7 @@ def main(cnt=10, safe=0, ang=[1,1,3], su=None):
             su.mouse_move(60, fine=3 // i)
             time.sleep(0.2)
             now_ang = get_angle(su, safe)
+            print("now_ang", now_ang)
             sub = now_ang - lst_ang
             while sub < 0:
                 sub += 360
