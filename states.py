@@ -275,7 +275,7 @@ class SimulatedUniverse(UniverseUtils):
             self.in_battle = time.time()
             return 1
         # 战斗详情界面（可能会出现的bug）
-        if self.check("battle_details", 0.9130,0.9222):
+        if self.check("battle_details", 0.4031,0.8277):
             self.press("c")
         # 祝福界面/回响界面 （放在一起处理了）
         if self.check("choose_bless", 0.9031, 0.9222):
