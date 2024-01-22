@@ -38,7 +38,7 @@ def main(cnt=10, safe=0, ang=[1,1,3], su=None):
             continue
         ang_list = []
         for j in range(i):
-            su.mouse_move(60, fine=0.5 // i)
+            su.mouse_move(60, fine=3 // i)
             time.sleep(0.2)
             now_ang = get_angle(su, safe)
             sub = lst_ang - now_ang
