@@ -1059,7 +1059,7 @@ class UniverseUtils:
             y = -30 // fine
         else:
             y = x
-        dx = int(16.5/6 * y * self.multi * self.scale)
+        dx = int(50/6 * y * self.multi * self.scale)
         print(self.multi)
         if self._stop == 0 and self.stop_move == 0:
             pyautogui.moveTo(0.5 * (self.x0 + self.x1), 0.5 * (self.y0 + self.y1))
