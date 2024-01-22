@@ -574,8 +574,8 @@ class SimulatedUniverse(UniverseUtils):
             self.floor_init = 1
         elif self.check("start", 0.5760, 0.7861):
             self.fail_count = 0
-            if self.check("team4", 0.4786, 0.5954):
-                dx = 0.9026 - 0.0774
+            if self.check("team4", 0.4740, 0.2463):
+                dx = 0.9026 - 0.8156
                 dy = 0.7740 - 0.5953
                 for i in self.order:
                     self.click(
