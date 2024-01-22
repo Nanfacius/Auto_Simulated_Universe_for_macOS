@@ -41,7 +41,7 @@ def main(cnt=10, safe=0, ang=[1,1,3], su=None):
             su.mouse_move(60, fine=3 // i)
             time.sleep(0.2)
             now_ang = get_angle(su, safe)
-            sub = lst_ang - now_ang
+            sub = now_ang - lst_ang
             while sub < 0:
                 sub += 360
             ang_list.append(sub)
@@ -52,10 +52,12 @@ def main(cnt=10, safe=0, ang=[1,1,3], su=None):
         ax = 0
         ay = 0
         for j in ang_list:
+            print("j =", j)
             if abs(j - np.median(ang_list)) <= 3:
                 ax += 60
                 ay += j
         su.multi *= ax / ay
+        print("ax =", ax, "\nay =", ay)
     su.multi += 1e-9
     try:
         if not abs(su.multi) <= 2:
