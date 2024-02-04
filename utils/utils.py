@@ -1881,10 +1881,10 @@ class UniverseUtils:
         min_val, max_val, min_loc, max_loc = cv.minMaxLoc(result)
         self.tx = x - (max_loc[0] - 0.5 * local_screen.shape[1] + 0.5 * target.shape[1]) / self.xx
         self.ty = y - (max_loc[1] - 0.5 * local_screen.shape[0] + 0.5 * target.shape[0]) / self.yy
-        if path == "./imgs/run.jpg" and 0:
-            print(max_val)
-            cv.imwrite('target.jpg', target)
-            cv.imwrite('local.jpg', local_screen)
+        # if path == "./imgs/run.jpg" and 0:
+        #     print(max_val)
+        #     cv.imwrite('target.jpg', target)
+        #     cv.imwrite('local.jpg', local_screen)
             # print(self.tx,self.ty)
             # print(x,y,max_loc,local_screen.shape)
             # self.click((self.tx,self.ty),click=0)
