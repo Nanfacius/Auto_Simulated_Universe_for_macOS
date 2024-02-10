@@ -341,12 +341,12 @@ class SimulatedUniverse(UniverseUtils):
             self.confirm_time = time.time()
             return 1
         # F交互界面
-        elif self.check("f", 0.4016, 0.3935, mask="mask_f1"):
+        elif self.check("f", 0.4016, 0.3935, mask="mask_f1") or self.check("f", 0.3800, 0.3935, mask="mask_f1"):
             # is_killed：是否是禁用交互（沉浸奖励、复活装置、下载装置）
             is_killed = 0
             time.sleep(0.4)
             self.get_screen()
-            if self.check("f", 0.4016, 0.3935, mask="mask_f1"):
+            if self.check("f", 0.4016, 0.3935, mask="mask_f1") or self.check("f", 0.3800, 0.3935, mask="mask_f1"):
                 for _ in range(4):
                     img = self.check("z", 0.2891, 0.3926, mask="mask_f", large=False)
                     # cv.imwrite("test_text.jpg", img)
@@ -877,7 +877,7 @@ class SimulatedUniverse(UniverseUtils):
         tm = time.time()
         while time.time() - tm < 10:
             self.get_screen()
-            if self.check("f", 0.4016, 0.3935, mask="mask_f1"):
+            if self.check("f", 0.3800, 0.3935, mask="mask_f1"):
                 self.press('f')
                 time.sleep(0.5)
                 self.press('f')
