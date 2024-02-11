@@ -1876,7 +1876,7 @@ class UniverseUtils:
             target[target >= 210] = 255
             target[target < 210] = 0
         if path == './imgs/star.jpg':
-            local_screen[local_screen < 100] = 0
+            local_screen[local_screen < 80] = 0
         if large == False:
             return local_screen
         result = cv.matchTemplate(local_screen, target, cv.TM_CCORR_NORMED)
