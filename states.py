@@ -607,7 +607,7 @@ class SimulatedUniverse(UniverseUtils):
             elif self.check("arrow_1", 0.2140, 0.5000, mask="mask_event"):
                 self.click((self.tx, self.ty))
             # 事件选择界面
-            elif self.check("star", 0.2140, 0.5000, mask="mask_event", threshold=0.965):
+            elif self.check("star", 0.2140, 0.5000, mask="mask_event", threshold=0.85):
                 tx, ty = self.tx, self.ty
                 try:
                     import yaml
