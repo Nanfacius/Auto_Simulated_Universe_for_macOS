@@ -429,7 +429,15 @@ class SimulatedUniverse(UniverseUtils):
                         log.info(f"地图编号：{self.now_map}  相似度：{self.now_map_sim}")
                         if self.now_map_sim < 0.35:
                             notif("相似度过低", "疑似在黑塔办公室")
-                            self.stop()
+
+
+                            self.mini_state = 1
+
+
+
+                            # self.stop()
+
+
                             if self.debug == 2:
                                 time.sleep(10000)
                             # self.init_map()

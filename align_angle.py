@@ -53,7 +53,7 @@ def main(cnt=10, safe=0, ang=[1,1,3], su=None):
         ax = 0
         ay = 0
         for j in ang_list:
-            # print("j =", j)
+            print("j =", j)
             if abs(j - np.median(ang_list)) <= 3:
                 ax += 60
                 ay += j

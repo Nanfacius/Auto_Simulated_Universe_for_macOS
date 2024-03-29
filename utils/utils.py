@@ -2886,7 +2886,8 @@ class UniverseUtils:
                 if self.check("auto_2", 0.0583, 0.0769):
                     keyops.keyUp("w")
                     self.stop_move = 1
-                    self.mini_state += 2
+                    if self.floor not in [0,5]:
+                        self.mini_state += 2
                     break
                 if self.check("z", 0.5000, 0.9074, mask="mask_z", threshold=0.90):
                     self.stop_move = 1
@@ -2917,11 +2918,13 @@ class UniverseUtils:
                         else:
                             time.sleep(1.2)
                         self.get_screen()
-                    self.mini_state += 2
+                    if self.floor not in [0,5]:
+                        self.mini_state += 2
                     break
             if time.time() - init_time > wt:
                 self.stop_move = 1
                 keyops.keyUp("w")
+                # if self.floor not in [0, 5]:
                 self.mini_state += 2
                 if self.mini_state >= 7:
                     self.lst_changed = 0
