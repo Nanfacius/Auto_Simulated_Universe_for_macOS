@@ -27,7 +27,7 @@ import utils.keyops as keyops
 
 
 # 版本号
-version = "v1.1 for macOS"
+version = "v1.2 for macOS"
 
 
 class SimulatedUniverse(UniverseUtils):
@@ -100,6 +100,8 @@ class SimulatedUniverse(UniverseUtils):
         self.fail_count = 0
         self.nums = nums
         self.end = 0
+        self.nomap = 0
+        self.init_ang = 0
         ex_notif = ""
         if not debug:
             pyautogui.FAILSAFE = False
@@ -387,6 +389,8 @@ class SimulatedUniverse(UniverseUtils):
                     return 1
         # 跑图状态
         if self.isrun():
+            if self.check("huangquan", 0.1062, 0.7324):
+                self.huangquan = 1
             if self.floor_init == 0:
                 self.get_level()
                 self.floor_init = 1
@@ -405,13 +409,15 @@ class SimulatedUniverse(UniverseUtils):
                         return 1
                 if self._stop:
                     return 1
+                self.get_screen()
+                self.init_ang = self.get_now_direc(self.get_local_loc())
                 self.big_map_c = 1
                 # 寻路模式，匹配最接近的地图
                 if self.find:
                     now_time = time.time()
                     self.now_map_sim = -1
                     self.now_map = -1
-                    if self.floor in [0, 5]:
+                    if self.floor in [0, 5] and not self.nomap:
                         self.mini_state = 0
                         self.stop_move = 0
                         while True:
@@ -429,15 +435,7 @@ class SimulatedUniverse(UniverseUtils):
                         log.info(f"地图编号：{self.now_map}  相似度：{self.now_map_sim}")
                         if self.now_map_sim < 0.35:
                             notif("相似度过低", "疑似在黑塔办公室")
-
-
-                            self.mini_state = 1
-
-
-
-                            # self.stop()
-
-
+                            self.stop()
                             if self.debug == 2:
                                 time.sleep(10000)
                             # self.init_map()
@@ -504,7 +502,7 @@ class SimulatedUniverse(UniverseUtils):
             # 长时间未交互/战斗，暂离或重开
             if (
                 (
-                    (time.time() - self.lst_changed >= 37 - 4 * self.debug + 8 * self.slow)
+                    (time.time() - self.lst_changed >= 60 - 4 * self.debug + 8 * self.slow)
                     and self.find == 1
                 )
                 or (self.floor == 12 and self.mini_state > 4)
@@ -568,6 +566,10 @@ class SimulatedUniverse(UniverseUtils):
             self.click((0.3, 0.4316))
             self.init_map()
         elif self.check("begin", 0.3490, 0.7546):
+            if self.check("world9", 0.3635, 0.8500):
+                self.nomap = 1 # 无图导航
+            else:
+                self.nomap = 0
             con = self.check("conti", 0.1365, 0.0843)
             if not con:
                 if self.diffi == 5:
@@ -725,7 +727,7 @@ class SimulatedUniverse(UniverseUtils):
             self.lst_changed = time.time()
             if self.floor >= 12:
                 self.floor = 11
-        elif self.check("yes1", 0.5, 0.5, mask="mask_end"):
+        elif self.check("yes1", 0.4, 0.3, mask="mask_end"):
             self.click((self.tx,self.ty))
             time.sleep(1)
             return 1

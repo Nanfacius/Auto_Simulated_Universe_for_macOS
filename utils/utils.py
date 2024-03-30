@@ -97,6 +97,7 @@ class UniverseUtils:
         self.img_map = dict()
         self.map_size = 190
         self.radius = 95
+        self.huangquan = 0
         # 用户选择的命途
         for i in range(len(config.fates)):
             if config.fates[i] == self.fate:
@@ -454,14 +455,89 @@ class UniverseUtils:
             else:
                 return -((-dx) ** 0.7)
 
+    def get_hidden_event(self):
+        local_screen = self.get_local(0.5000, 0.6111, (660, 1270))
+        res = self.ts.ts.detect_and_ocr(local_screen)
+        if res:
+            for result in res:
+                print(result)
+                if result.score > 0.75:
+                    for keyword in ["装置", "沉浸", "奖励", "复活", "下载"]:
+                        if keyword in result.ocr_text:
+                            break
+                    else:
+                        box = res[0].box
+                        text = res[0].ocr_text
+                        # print(result.score)
+                        break
+                else:
+                    continue
+            else:
+                return None
+            # print(box)
+            # print(text)
+            box_cen = [0.5*(box[0][0] + box[2][0]), 0.5*(box[0][1] + box[2][1])]
+            cen = 660
+            dx = box_cen[0] - cen
+            if dx > 0:
+                return dx ** 0.7
+            else:
+                return -((-dx) ** 0.7)
+        else:
+            return None
+
+    # def move_to_hidden_event(self, i):
+    #     dx = self.get_hidden_event()
+    #     if dx is None:
+    #         if i:
+    #             return 0
+    #         pyautogui.move(0, -200)
+    #         time.sleep(0.3)
+    #         dx = self.get_hidden_event()
+    #         off = 0
+    #         if dx is None:
+    #             for k in [60, -30, -60, -30, -40, -40, -40, -40, -40]:
+    #                 if self.ang_neg:
+    #                     self.mouse_move(k)
+    #                     off -= k
+    #                 else:
+    #                     self.mouse_move(-k)
+    #                     off += k
+    #                 time.sleep(0.3)
+    #                 dx = self.get_hidden_event()
+    #                 if dx is not None:
+    #                     break
+    #             if dx is None:
+    #                 self.mouse_move(off * 1.03)
+    #                 time.sleep(0.3)
+    #                 return 0
+    #
+    #     if i == 0:
+    #         self.mouse_move(dx / 3)
+    #         time.sleep(0.3)
+    #     else:
+    #         self.mouse_move(dx / 5)
+    #         time.sleep(0.3)
+    #     if i == 0 and abs(dx / 3) > 30:
+    #         time.sleep(0.3)
+    #         dx = self.get_hidden_event()
+    #         if dx is not None:
+    #             self.mouse_move(dx / 4)
+    #             time.sleep(0.3)
+    #     return 1
+
     def move_to_end(self, i=0):
         dx = self.get_end_point(i)
+        if dx is None and self.floor in [1, 2, 6, 9, 10]:
+            dx = self.get_hidden_event()
         if dx is None:
             if i:
                 return 0
             pyautogui.move(0, -200)
             time.sleep(0.3)
             dx = self.get_end_point()
+            if dx is None and self.floor in [1, 2, 6, 9, 10]:
+                dx = self.get_hidden_event()
             off = 0
             if dx is None:
                 for k in [60, -30, -60, -30, -40, -40, -40, -40, -40]:
@@ -473,11 +549,14 @@ class UniverseUtils:
                         off += k
                     time.sleep(0.3)
                     dx = self.get_end_point()
+                    if dx is None and self.floor in [1, 2, 6, 9, 10]:
+                        dx = self.get_hidden_event()
                     if dx is not None:
                         break
                 if dx is None:
                     self.mouse_move(off * 1.03)
                     time.sleep(0.3)
+                    # self.move_to_hidden_event(1)
                     return 0
         if i == 0:
             self.mouse_move(dx / 3)
@@ -488,6 +567,8 @@ class UniverseUtils:
         if i == 0 and abs(dx / 3) > 30:
             time.sleep(0.3)
             dx = self.get_end_point(1)
+            if dx is None and self.floor in [1, 2, 6, 9, 10]:
+                dx = self.get_hidden_event()
             if dx is not None:
                 self.mouse_move(dx / 4)
                 time.sleep(0.3)
@@ -695,7 +776,7 @@ class UniverseUtils:
 
     def move_to_interac(self, ii=0, abyss=0):
         self.get_screen()
-        threshold = 0.88
+        threshold = 0.9
         shape = (int(self.scx * self.map_size), int(self.scx * self.map_size))
         curloc = (0.5 * self.map_size, 0.5 * self.map_size)
         blue = np.array([249, 194, 89])
@@ -756,6 +837,9 @@ class UniverseUtils:
                 sub = 0
             if not self.stop_move:
                 # time.sleep(20)
+                # print("ang:", ang)
+                # print("self.ang", self.ang)
+                # print("mouse_move:",sub)
                 self.mouse_move(sub)
                 return sub
             else:
@@ -777,9 +861,20 @@ class UniverseUtils:
             me = 0.5
         while not self.stop_move and time.time() - now_time < 3:
             if self.mini_state <= 2:
-                self.ang_off += self.move_to_interac()
+                self.ang_off += self.move_to_interac(0)
             else:
                 me = max(self.move_to_end(me), me)
+        self.get_screen()
+        self.get_now_direc(self.get_local_loc())
+        sub = self.init_ang - self.ang
+        while sub < -180:
+            sub += 360
+        while sub > 180:
+            sub -= 360
+        if sub == 0:
+            sub = 1e-9
+        print("init", self.init_ang, "ang", self.ang, "sub", sub)
+        self.mouse_move(sub)
         try:
             '''
             exec(
@@ -806,7 +901,8 @@ class UniverseUtils:
         log.info('交互点生效：' + str(ava))
         if ava:
             if must_be == 'event':
-                self.mini_state += 2
+                if self.floor not in [0, 5]:
+                    self.mini_state += 2
             elif self.ts.sim("区域") or must_be == 'tp':
                 self.init_map()
                 self.floor += 1
@@ -816,7 +912,7 @@ class UniverseUtils:
             else:
                 if self.ts.sim("黑塔"):
                     self.quit = time.time()
-                self.mini_state += 2
+                    self.mini_state += 2
         return ava
 
     # 寻路函数
@@ -1320,6 +1416,8 @@ class UniverseUtils:
         if self.mini_state == 3 and self.floor == 12 and not self.check_bonus:
             self.mini_state += 2
             return
+        if self.mini_state == 3 and self.floor in [3, 7, 12]:
+            self.press('w', 1)
         if self.mini_state == 3 and self.floor in [3, 7, 12] and self.check_bonus:
             self.press('d', 0.45)
             keyops.keyDown('w')
@@ -1331,7 +1429,7 @@ class UniverseUtils:
                     keyops.keyUp('w')
                     break
             keyops.keyUp('w')
-            self.press('f')
+            # self.press('f')
             time.sleep(1)
             for _ in range(2):
                 if not self.check_bonus:
@@ -1358,6 +1456,7 @@ class UniverseUtils:
         self.ready = 0
         self.mini_target = 0
         self.get_screen()
+        self.ang = self.get_now_direc(self.get_local_loc())
         self.is_target = 0
         first = self.first_mini
         threading.Thread(target=self.move_thread).start()
@@ -1368,7 +1467,8 @@ class UniverseUtils:
                 if self.floor == 11:
                     self.floor = 12
         keyops.keyDown("w")
-        wt = 3
+        print('keydown')
+        wt = 5
         self.first_mini = 0
         sft = 0
         if self.mini_state == 1:
@@ -1389,6 +1489,7 @@ class UniverseUtils:
             if self.mini_target == 1:
                 if self.check("f", 0.4016, 0.3935, mask="mask_f1"):
                     self.press('f')
+                    keyops.keyUp('w')
                     log.info('发现事件交互')
                     self.stop_move = 1
                     need_confirm = 1
@@ -1409,7 +1510,7 @@ class UniverseUtils:
                 if self.check("auto_2", 0.0583, 0.0769):
                     keyops.keyUp("w")
                     self.stop_move = 1
-                    if self.floor not in [0,5]:
+                    if self.floor not in [0, 5]:
                         self.mini_state += 2
                     break
                 if self.check("z", 0.5000, 0.9074, mask="mask_z", threshold=0.90):
@@ -1433,7 +1534,27 @@ class UniverseUtils:
                         iters += 1
                         if iters > 4:
                             break
-                        self.click((0.1833, 0.2343))
+                        # 黄泉
+                        if self.huangquan:
+                            self.press('space')
+                            time.sleep(0.2)
+                            self.press('space')
+                            time.sleep(0.2)
+                            self.press('space')
+                            time.sleep(0.2)
+                            self.press('space')
+                            time.sleep(0.2)
+                            self.press('space')
+                            time.sleep(4)
+                            self.get_screen()
+                            if self.check("choose_bless", 0.9031, 0.9222):
+                                self.stop_move = 1
+                                if self.floor not in [0, 5]:
+                                    self.mini_state += 2
+                                return
+                        else:
+                            self.click((0.1833, 0.2343))
+                            time.sleep(0.1)
                         if iters == 2:
                             time.sleep(0.9)
                             self.press('d', 0.85)
@@ -1454,14 +1575,16 @@ class UniverseUtils:
                     return
                 self.press('s', 0.3)
                 self.press('a', 0.7)
-                self.press('d', 0.45)
-                self.press('w', 0.5)
+                self.press('w', 1)
+                self.press('s', 0.3)
+                self.press('d', 1.4)
+                self.press('w', 1)
                 break
             time.sleep(0.1)
         self.stop_move = 1
         keyops.keyUp("w")
         if need_confirm or (first and self.mini_target != 2):
-            for i in "sasddwwaa":
+            for i in "sawwwsddwwwaa":
                 if self._stop:
                     return
                 self.get_screen()
@@ -1476,4 +1599,12 @@ class UniverseUtils:
                         return
                 self.press(i, 0.25)
                 time.sleep(0.4)
+            self.press("s", 0.35)
+            self.press("a", 0.2 * random.randint(1, 3))
+            self.press("w", 0.3)
+            time.sleep(0.4)
+            self.press("s", 0.35)
+            self.press("d", 0.4 * random.randint(1, 3))
+            self.press("w", 0.3)
+            time.sleep(0.4)
             pyautogui.click()
