@@ -528,7 +528,7 @@ class UniverseUtils:
 
     def move_to_end(self, i=0):
         dx = self.get_end_point(i)
-        if dx is None and self.floor in [1, 2, 6, 9, 10]:
+        if dx is None and self.floor in [1, 2, 6, 9, 10] and self.nomap:
             dx = self.get_hidden_event()
         if dx is None:
             if i:
@@ -536,7 +536,7 @@ class UniverseUtils:
             pyautogui.move(0, -200)
             time.sleep(0.3)
             dx = self.get_end_point()
-            if dx is None and self.floor in [1, 2, 6, 9, 10]:
+            if dx is None and self.floor in [1, 2, 6, 9, 10] and self.nomap:
                 dx = self.get_hidden_event()
             off = 0
             if dx is None:
@@ -549,7 +549,7 @@ class UniverseUtils:
                         off += k
                     time.sleep(0.3)
                     dx = self.get_end_point()
-                    if dx is None and self.floor in [1, 2, 6, 9, 10]:
+                    if dx is None and self.floor in [1, 2, 6, 9, 10] and self.nomap:
                         dx = self.get_hidden_event()
                     if dx is not None:
                         break
@@ -567,7 +567,7 @@ class UniverseUtils:
         if i == 0 and abs(dx / 3) > 30:
             time.sleep(0.3)
             dx = self.get_end_point(1)
-            if dx is None and self.floor in [1, 2, 6, 9, 10]:
+            if dx is None and self.floor in [1, 2, 6, 9, 10] and self.nomap:
                 dx = self.get_hidden_event()
             if dx is not None:
                 self.mouse_move(dx / 4)
@@ -1096,22 +1096,77 @@ class UniverseUtils:
                 self.lst_tm = time.time()
             if type == 1:
                 if self._stop == 0:
-                    self.click((0.1833, 0.2343))
+                    if self.huangquan:
+                        self.press('space')
+                        time.sleep(0.2)
+                        self.press('space')
+                        time.sleep(0.2)
+                        self.press('space')
+                        time.sleep(0.2)
+                        self.press('space')
+                        time.sleep(0.2)
+                        self.press('space')
+                    else:
+                        self.click((0.1833, 0.2343))
                 time.sleep(1.1)
                 self.press("s")
                 if self._stop == 0:
-                    self.click((0.1833, 0.2343))
+                    if self.huangquan:
+                        self.press('space')
+                        time.sleep(0.2)
+                        self.press('space')
+                        time.sleep(0.2)
+                        self.press('space')
+                        time.sleep(0.2)
+                        self.press('space')
+                        time.sleep(0.2)
+                        self.press('space')
+                    else:
+                        self.click((0.1833, 0.2343))
                 time.sleep(0.8)
                 if len(self.target) <= 2:
                     time.sleep(0.3)
                     self.press("s")
-                    self.click((0.1833, 0.2343))
+                    if self.huangquan:
+                        self.press('space')
+                        time.sleep(0.2)
+                        self.press('space')
+                        time.sleep(0.2)
+                        self.press('space')
+                        time.sleep(0.2)
+                        self.press('space')
+                        time.sleep(0.2)
+                        self.press('space')
+                    else:
+                        self.click((0.1833, 0.2343))
                     time.sleep(0.6)
                     self.press("s", 0.5)
-                    self.click((0.1833, 0.2343))
+                    if self.huangquan:
+                        self.press('space')
+                        time.sleep(0.2)
+                        self.press('space')
+                        time.sleep(0.2)
+                        self.press('space')
+                        time.sleep(0.2)
+                        self.press('space')
+                        time.sleep(0.2)
+                        self.press('space')
+                    else:
+                        self.click((0.1833, 0.2343))
                     time.sleep(0.5)
                     self.press("w", 1.6)
-                    self.click((0.1833, 0.2343))
+                    if self.huangquan:
+                        self.press('space')
+                        time.sleep(0.2)
+                        self.press('space')
+                        time.sleep(0.2)
+                        self.press('space')
+                        time.sleep(0.2)
+                        self.press('space')
+                        time.sleep(0.2)
+                        self.press('space')
+                    else:
+                        self.click((0.1833, 0.2343))
             if type == 3:
                 for i in range(9):
                     self.get_screen()
