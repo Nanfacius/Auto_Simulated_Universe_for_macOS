@@ -649,8 +649,13 @@ class SimulatedUniverse(UniverseUtils):
                     self.click((self.tx, self.ty))
                 else:
                     self.click((tx, ty))
-                    time.sleep(0.3)
-                    self.click((0.1359, ty - 0.4685 + 0.3546))
+                    time.sleep(0.4)
+                    if self.check("confirm", 0.2140, 0.5000, mask="mask_event", threshold=0.965):
+                        self.click((self.tx, self.ty))
+                    else:
+                        self.drag([tx, ty], [tx, ty + 0.3])
+                        if self.check("confirm", 0.2140, 0.5000, mask="mask_event", threshold=0.965):
+                            self.click((self.tx, self.ty))
                 time.sleep(0.5)
                 for _ in range(7):
                     self.get_screen()
