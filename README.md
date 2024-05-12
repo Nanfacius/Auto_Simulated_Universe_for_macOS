@@ -1,4 +1,4 @@
-# Auto_Simulated_Universe
+# Auto_Simulated_Universe_for_macOS
 星穹铁道-模拟宇宙自动化-macOS版
 
 使用指南：
